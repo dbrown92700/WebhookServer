@@ -1,17 +1,19 @@
 # app.py
 
 from flask import Flask, request
+import json
 
 app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        print("Data received from Webhook is: ", request.json)
+        print("\nData received from Webhook is:\n\n", json.dumps(request.json, indent=2))
         return "Webhook received!"
 
 @app.route('/', methods = ['GET'])
 def get_request():
     return('Up and running!')
 
-app.run(host='192.168.1.59', port=8000)
+host = input('What is your server IP? ')
+app.run(host=host, port=8000)
